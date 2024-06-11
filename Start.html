@@ -78,6 +78,11 @@
             setTimeout(function() {
                 sound.play();
             }, 10000);
+
+            // サウンドが再生終了したらmenu.htmlに移動
+            sound.addEventListener('ended', function() {
+                window.location.href = 'menu.html';
+            });
         });
     });
 </script>
