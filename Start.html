@@ -46,43 +46,25 @@
     <h2>アプリを起動中...</h2>
 </div>
 
-<!-- ダイアログ -->
-<div id="adblock-dialog" class="modal">
-    <div class="modal-content">
-        <h4>広告ブロッカーをオフにしてください</h4>
-        <p>音源が再生されないなどのことがありますので、オフにしてください。</p>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" id="ok-button" class="modal-close waves-effect waves-green btn-flat">OK</a>
-    </div>
-</div>
-
-<audio id="start-up-sound" src="/App-1/sound/StartUp.mp3" preload="auto"></audio>
+<!-- 音声ファイルの読み込み -->
+<audio id="startup-sound" src="/App-1/sound/StartUp.mp3"></audio>
 
 <!-- Materialize JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // ダイアログの初期化
-        var elems = document.querySelectorAll('.modal');
-        var instances = M.Modal.init(elems);
+        // 音声ファイルを事前にロード
+        var audio = document.getElementById('startup-sound');
+        audio.load();
 
-        // ダイアログを表示
-        var instance = M.Modal.getInstance(document.getElementById('adblock-dialog'));
-        instance.open();
+        // 10秒後に音声を再生
+        setTimeout(function() {
+            audio.play();
+        }, 10000);
 
-        // OKボタンがクリックされたときの処理
-        document.getElementById('ok-button').addEventListener('click', function() {
-            // サウンドを10秒後に再生
-            var sound = document.getElementById('start-up-sound');
-            setTimeout(function() {
-                sound.play();
-            }, 10000);
-
-            // サウンドが再生終了したらmenu.htmlに移動
-            sound.addEventListener('ended', function() {
-                window.location.href = 'menu.html';
-            });
+        // 音声が終了したらmenu.htmlに移動
+        audio.addEventListener('ended', function() {
+            window.location.href = 'menu.html';
         });
     });
 </script>
