@@ -37,9 +37,6 @@
             border-radius: 5px;
             z-index: 1000;
         }
-        .ad-container {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -80,15 +77,16 @@
 
         // 広告ブロッカー検出
         const adBlockerMessage = document.getElementById('adblock-message');
-        const adContainer = document.createElement('div');
-        adContainer.className = 'ad-container';
-        document.body.appendChild(adContainer);
+        const fakeAd = document.createElement('div');
+        fakeAd.className = 'adsbygoogle';
+        fakeAd.style.display = 'none';
+        document.body.appendChild(fakeAd);
 
         setTimeout(() => {
-            if (getComputedStyle(adContainer).display === 'none') {
+            if (!fakeAd || fakeAd.style.display === 'none' || fakeAd.offsetParent === null) {
                 adBlockerMessage.style.display = 'block';
             }
-            document.body.removeChild(adContainer);
+            document.body.removeChild(fakeAd);
         }, 100);
     });
 </script>
