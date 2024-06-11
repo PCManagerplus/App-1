@@ -34,11 +34,11 @@
     </div>
 
     <!-- Audio element -->
-    <audio id="startup-sound" src="https://pcmanagerplus.github.io/App-1/sound/StartUp.mp3"></audio>
+    <audio id="startup-sound" src="StartUp.mp3"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Play sound after 10 seconds
+            // Delay 10 seconds before playing the sound
             setTimeout(function() {
                 var audio = document.getElementById('startup-sound');
                 audio.play();
