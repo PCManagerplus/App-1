@@ -25,23 +25,9 @@
             margin-top: 20px;
             color: #333; /* テキスト色を調整 */
         }
-        #adblock-message {
-            display: none;
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #ffeb3b;
-            color: #000;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 1000;
-        }
     </style>
 </head>
 <body>
-
-<div id="adblock-message">広告ブロッカーが有効になっています。広告ブロッカーを無効にしてください。</div>
 
 <div class="splash-screen">
     <div class="preloader-wrapper big active">
@@ -60,34 +46,39 @@
     <h2>アプリを起動中...</h2>
 </div>
 
+<!-- ダイアログ -->
+<div id="adblock-dialog" class="modal">
+    <div class="modal-content">
+        <h4>広告ブロッカーをオフにしてください</h4>
+        <p>音源が再生されないなどのことがありますので、オフにしてください。</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" id="ok-button" class="modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+</div>
+
+<audio id="start-up-sound" src="/App-1/sound/StartUp.mp3" preload="auto"></audio>
+
 <!-- Materialize JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // オーディオ要素の作成とプリロード
-        const audio = new Audio('/App-1/sound/StartUp.mp3');
-        audio.preload = 'auto';
+        // ダイアログの初期化
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
 
-        // 10秒後にオーディオを再生
-        setTimeout(() => {
-            audio.play().catch(error => {
-                console.error('オーディオの再生に失敗しました:', error);
-            });
-        }, 10000); // 10秒後に再生
+        // ダイアログを表示
+        var instance = M.Modal.getInstance(document.getElementById('adblock-dialog'));
+        instance.open();
 
-        // 広告ブロッカー検出
-        const adBlockerMessage = document.getElementById('adblock-message');
-        const fakeAd = document.createElement('div');
-        fakeAd.className = 'adsbygoogle';
-        fakeAd.style.display = 'none';
-        document.body.appendChild(fakeAd);
-
-        setTimeout(() => {
-            if (!fakeAd || fakeAd.style.display === 'none' || fakeAd.offsetParent === null) {
-                adBlockerMessage.style.display = 'block';
-            }
-            document.body.removeChild(fakeAd);
-        }, 100);
+        // OKボタンがクリックされたときの処理
+        document.getElementById('ok-button').addEventListener('click', function() {
+            // サウンドを10秒後に再生
+            var sound = document.getElementById('start-up-sound');
+            setTimeout(function() {
+                sound.play();
+            }, 10000);
+        });
     });
 </script>
 </body>
