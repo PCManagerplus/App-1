@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Import Google Icon Font -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Import Materialize CSS -->
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" media="screen,projection"/>
+  <!-- Optimize for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>広告ブロッカーの確認</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <h5>開始する前に</h5>
+        <p>広告ブロッカーを無効にしてください。</p>
+        <p>しましたら、下のチェックボックスにチェックし、Bootボタンを押してください</p>
+        <label>
+          <input type="checkbox" id="adblock-check"/>
+          <span>私は広告ブロッカーをオフにしました。</span>
+        </label>
+        <br>
+        <a class="waves-effect waves-light btn" id="boot-button">Boot</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import Materialize JS -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Optional: jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#boot-button').click(function() {
+        if ($('#adblock-check').prop('checked')) {
+          window.location.href = 'Start.html';
+        } else {
+          M.toast({html: '広告ブロッカーをオフにしてください。'});
+        }
+      });
+    });
+  </script>
+</body>
+</html>
