@@ -35,13 +35,34 @@
     <script>
         document.getElementById('fullscreen-btn').addEventListener('click', function() {
             // Adsara.htmlを全画面で開く
-            window.open('Adsara.html', '_blank', 'fullscreen=yes');
+            openFullscreen('Adsara.html');
         });
 
         document.getElementById('normal-btn').addEventListener('click', function() {
             // Adsara.htmlを通常モードで開く
             window.location.href = 'Adsara.html';
         });
+
+        function openFullscreen(url) {
+            var elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().then(function() {
+                    window.location.href = url;
+                });
+            } else if (elem.mozRequestFullScreen) { // Firefox
+                elem.mozRequestFullScreen().then(function() {
+                    window.location.href = url;
+                });
+            } else if (elem.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                elem.webkitRequestFullscreen().then(function() {
+                    window.location.href = url;
+                });
+            } else if (elem.msRequestFullscreen) { // IE/Edge
+                elem.msRequestFullscreen().then(function() {
+                    window.location.href = url;
+                });
+            }
+        }
     </script>
 </body>
 </html>
