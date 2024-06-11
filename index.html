@@ -63,6 +63,14 @@
                 });
             }
         }
+
+        // ページ遷移時にも全画面表示を維持する
+        document.addEventListener("fullscreenchange", function(event) {
+            if (!document.fullscreenElement) {
+                // フルスクリーン解除時にもURLに遷移
+                window.location.href = 'Adsara.html';
+            }
+        });
     </script>
 </body>
 </html>
